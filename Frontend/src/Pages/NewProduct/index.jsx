@@ -24,8 +24,7 @@ const NewProduct = (props) => {
         stock: {
             value: 0,
             error: "",
-        },
-
+        }
     })
     let [thumbnail, setThumbnail] = useState(null);
     const handleInputChange = (e) => {

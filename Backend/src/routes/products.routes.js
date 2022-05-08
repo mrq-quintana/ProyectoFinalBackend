@@ -9,7 +9,7 @@ router.get('/:pid',productsController.getProductById)
 //POST
 router.post('/',uploader.single('thumbnail'), productsController.saveProduct)
 //PUT
-router.put('/:pid', productsController.updateProductById)
+router.post('/:pid', productsController.updateProductById)
 //DELETE
 router.delete('/:id', productsController.deleteProductById)
 router.delete('/', productsController.deleteAll)

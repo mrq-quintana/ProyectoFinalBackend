@@ -16,7 +16,8 @@ const ProductDescription = (props) => {
         description:'',
         price:0,
         stock:0,
-        code:0
+        code:0,
+        
     })
     let currentUser = JSON.parse(localStorage.getItem('user'));
     useNavigate();
@@ -59,6 +60,41 @@ const ProductDescription = (props) => {
     }
     const setUpdate = () => {
         setUpdating(true);
+     }
+     const handleInputChange = (e) => {
+        setInput((prev) => ({
+            ...prev,
+            [e.target.name]: {
+                value: e.target.value,
+                error: null
+            }
+        }))
+    }
+    const Update = (e) => {
+        e.preventDefault();
+        let error = false
+        Object.keys(input).forEach(key => {
+            if (input[key].value === 0) {
+                error = true;
+                setInput((prev) => ({
+                    ...prev,
+                    [key]: {
+                        ...prev[key],
+                        error: "Completar este campo"
+                    }
+                }))
+            }
+        })
+        if (!error){
+            let pid = params.pid;
+            let form = new FormData();
+            form.append('title', input.title.value);
+            form.append('description', input.description.value);
+            form.append('code', input.code.value);
+            form.append('stock', input.stock.value);
+            form.append('price', input.price.value);
+            productsService.updateProduct({pid:pid,body:form, callbackSuccess:callbackSuccessUpdateCart, callbackError:callbackErrorUpdateCart})
+        }
     }
     /*CALLBACKS */
     const callbackSuccessGetProductById = (result) => {
@@ -80,9 +116,12 @@ const ProductDescription = (props) => {
         Swal.fire({
             icon: "success",
             title: "Operación exitosa",
-            text: "El producto se ha agregado a su carrito"
+            text: "El producto se ha agregado a su carrito",
+            timer:5000
         })
-        window.location.replace('/');
+        setTimeout(function(){
+            window.location.replace('/')
+        }, 2000);
     }
     const callbackErrorAddProductToCart = (error) => {
         console.log(error);
@@ -97,6 +136,21 @@ const ProductDescription = (props) => {
         window.location.replace('/');
     }
     const callbackErrorDeleteCart = (error) => {
+        console.log(error);
+    }
+    const callbackSuccessUpdateCart = (result) => {
+        // console.log(result.data);
+        Swal.fire({
+            icon: "success",
+            title: "Producto actualizado",
+            text: "Correctamente",
+            timer:5000
+        })
+        setTimeout(function(){
+            window.location.replace('/')
+        }, 2000);
+    }
+    const callbackErrorUpdateCart = (error) => {
         console.log(error);
     }
     return (<MainContainer>
@@ -128,14 +182,7 @@ const ProductDescription = (props) => {
                                 <br />
                                 <br />
                                 {
-                                    currentCart ? currentCart.some(prod => prod.product._id === product._id) ?
-                                    <>
-                                            <p>El producto ya está en el carrito</p>
-                                            <button className="addToCartButton">Ver carrito</button>
-                                    </> :
-                                            <button className="addToCartButton" onClick={addProduct}>Agregar al carrito</button> 
-                                        : 
-                                            <button className="addToCartButton" onClick={addProduct}>Agregar al carrito</button> 
+                                    <button className="addToCartButton" onClick={addProduct}>Agregar al carrito</button> 
                                 }
                             </div>
                         </div>
@@ -170,18 +217,24 @@ const ProductDescription = (props) => {
                                     </div>
                                     :
                                     <div>
+                                        <form>
                                         <p style={{ fontSize: "25px", textAlign: "center" }}>Actualizar producto</p>
                                         <div style={{textAlign:"center"}}>
-                                            <label>Nombre del producto: </label>
-                                            <input value={input.title}></input>
-                                            <label>Descripción del producto:</label>
-                                            <textarea value={input.description}></textarea>
-                                            <label>Precio</label>
-                                            <input value={input.price}></input>
-                                            <p>Código: {product.code}</p>
-                                            <label>Stock: </label>
-                                            <input value={product.stock}/>
+                                        <label>Nombre del producto</label>
+                                        <input value={input.title.value} name="title" onChange={handleInputChange} />
+                                        <label>Precio del producto</label>
+                                        <input value={input.price.value} name="price" type="number" onChange={handleInputChange} />
+                                        <label>Descripción</label>
+                                        <textarea value={input.description.value} name="description" onChange={handleInputChange} />
+                                        <label>Código</label>
+                                        <input value={input.code.value} name="code" onChange={handleInputChange} />
+                                        <label>Stock</label>
+                                        <input value={input.stock.value} name="stock" type="number" onChange={handleInputChange} />
                                         </div>
+                                        <div style={{ textAlign: "center", marginTop: "40px" }}>
+                                            <button className="addToCartButton" onClick={Update}>Actualizar</button>
+                                        </div>
+                                    </form>
                                     </div>
                             }
                         </div>

@@ -5,10 +5,10 @@ import Cart from './Cart.js'
 import Message from './Message.js'
 export default class Dao {
     constructor(config){
-        this.mongoose= mongoose.connect(config.url,{useNewUrlParser:true,useUnifiedTopology:true}).catch(error=>{
-            console.error(error);
-            process.exit();
-        })
+        this.mongoose = mongoose.connect(config.url, { useNewUrlParser: true, useUnifiedTopology: true })
+            .then(() => { console.log("Mongodb esta conectado"); })
+            .catch(() => { console.log("Mongodb se se ha podido conectar"), process.exit() 
+        });
         const timestamp = {timestamps:{createdAt:'created_at',updatedAt:'updated_at'}};
         const userSchema = mongoose.Schema(User.schema,timestamp);
         const productSchema = mongoose.Schema(Product.schema,timestamp);

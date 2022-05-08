@@ -26,6 +26,8 @@ const saveProduct = async (req, res) => {
   const updateProductById = async(req,res)=>{
       let id = req.params.pid;
       let body = req.body;
+      console.log(id)
+      console.log(req.body)
       let product = await productService.update(id,body)
           res.send(product);
   };

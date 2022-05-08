@@ -18,4 +18,8 @@ export default class ProductsService{
         const data = {url:`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_CREATE_PRODUCT}`,body,config:getAuthHeaders(),callbackSuccess,callbackError}
         this.httpClient.makePostRequest(data);
     }
+    updateProduct=({pid,callbackSuccess,callbackError})=> {
+        const data = {url:`${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_UPDATE_PRODUCT}${pid}`,config:getAuthHeaders(),callbackSuccess,callbackError}
+        this.httpClient.makePostRequest(data);
+    }
 }

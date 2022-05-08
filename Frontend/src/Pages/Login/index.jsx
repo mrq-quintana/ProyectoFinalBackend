@@ -61,9 +61,9 @@ const Login = () => {
         }
        let userLocal = JSON.parse(localStorage.getItem('user')); 
         Swal.fire({
-            icon: "succes",
+            icon: "success",
             title: "Bienvenido",
-            text: userLocal.first_name +' '+ userLocal.last_name,
+            text: userLocal.first_name? userLocal.first_name +' '+ userLocal.last_name : "Administrador",
             timer:5000
         })
 
@@ -75,7 +75,7 @@ const Login = () => {
     const callbackErrorLogin = (error) =>{
         Swal.fire({
             icon: "error",
-            title: "Ususario no registrado",
+            title: "Usuario no registrado",
             text: "Por favor complete sus datos",
             timer:5000
         })
