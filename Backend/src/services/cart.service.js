@@ -10,4 +10,8 @@ export default class CartService extends GenericQueries{
         let result = await this.dao.models[Cart.model].findOne(params).populate('products.product')
         return result;
     }
+    deleteProductInCart = async(id,id_prod) =>{   
+        let result = await this.dao.models[Cart.model].find({$and:[{_id:id.id},{productos:id_prod.id_prod}]}).count();
+        return result;
+    }
 }

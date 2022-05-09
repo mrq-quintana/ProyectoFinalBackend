@@ -74,7 +74,7 @@ const Chat = () => {
                     <div style={{ overflowY: "auto" }} id="logsDiv">
                         {
                             logs?logs.map(message=><div style={{display:"flex"}}>
-                                <img className="thumbnail_chat" src={message.author.profile_picture}></img>
+                                <img className="thumbnail_chat" src={message.author.profile_picture} key={message.author}></img>
                                 <p>{message.content}</p>
                             </div>):null
                         }

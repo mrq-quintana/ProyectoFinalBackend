@@ -13,7 +13,9 @@ const initializePassport = () =>{
         let {first_name,last_name,email,phone} = req.body;
         try{
             if(!req.file) return done(null,false,{messages:"Couldn't get picture for user"})
-            let user  = await userService.getBy({email:email})
+           
+            let user  = await userService.getBy({email})
+          
             if(user) return done(null,false,{messages:"User Already exists"});
             let cart = await cartService.save({products:[]})
             const newUser ={
@@ -26,10 +28,14 @@ const initializePassport = () =>{
                 cart: cart._id,
                 profile_picture:req.file.location
             }
-            let result = await userService.save(newUser);
-            return done(null,result);
+            try{
+                let result = await userService.save(newUser);
+                return done(null,result,{messages:"Usuario agregado"});
+            }catch(err){
+              
+                return done(err);
+            }
         }catch(err){
-            console.log(err);
             return done(err);
         }
     }))

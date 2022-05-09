@@ -77,7 +77,7 @@ const Register = () =>{
         if(response.data.error){
             Swal.fire({
                 icon:"error",
-                title:"Cannot Register",
+                title:"No fue posible el registro",
                 text:response.data.error,
                 timer:2000
             }).then(result=>{

@@ -164,6 +164,7 @@ const ProductDescription = (props) => {
                 <div className="descriptionPanel">
                     <p style={{ fontSize: "35px" }}>{product && product.title}</p>
                     <p style={{ fontSize: "20px" }}>{product && product.description}</p>
+                    <p style={{ fontSize: "20px" }}>Stock: {product && product.stock}</p>
                     <p style={{ fontSize: "40px" }}>$ {product && product.price}<span style={{ fontSize: "15px", position: "relative", bottom: "20px" }}>00</span></p>
                 </div>
             </div>

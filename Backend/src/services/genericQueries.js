@@ -20,4 +20,7 @@ export default class GenericQueries{
     delete = async(id)=>{
         return this.dao.delete(id,this.model);
     }
+    exists = async(params)=>{
+        return this.dao.exists(params,this.model);
+    }
 }

@@ -22,7 +22,7 @@ const Home = (props) => {
             <p className="homeTitle">Nuestros Últimos productos</p>
             <div className="productPanel">
                 {
-                    products ? products.map(product => <Product element={product} />) : null
+                    products ? products.map(product => <Product key={product._id} element={product} />) : null
                 }
             </div>
         </div>

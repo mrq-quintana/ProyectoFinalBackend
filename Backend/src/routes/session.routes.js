@@ -24,7 +24,7 @@ router.post('/login',passportCall('login'),(req,res)=>{
         user=req.user;
     }
     let token = jwt.sign(user,config.jwt.secret)
-    res.cookie('sessionCookie','boom',{
+    res.cookie('sessionCookie','lacookie',{
         maxAge:60*60*1000
     })
     res.cookie(config.jwt.cookie_name,token,{

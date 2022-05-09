@@ -56,7 +56,7 @@ export default class Dao {
         let result = await this.models[entity].findByIdAndDelete(id);
         return result? result.toObject():null;
     }
-    exists = async(entity,options)=>{
+    exists = async(options,entity)=>{
         if(!this.models[entity]) throw new Error(`Entity ${entity} not found or defined`)
         return this.models[entity].exists(options);
     }

@@ -34,7 +34,6 @@ const Navbar = (props) => {
                         <img src={currentUser.profile_picture ? currentUser.profile_picture: AdminIcon} className={currentUser.role==="superadmin"?"mainIcon":"userIcon"} />
                         <div className="dropdownContent">
                             <button className="dropdownButton" onClick={logout}>Cerrar sesión</button>
-                            <button className="dropdownButton">Configuración</button>
                         </div>
                     </div>
                 </div>
